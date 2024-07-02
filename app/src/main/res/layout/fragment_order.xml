@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".OrderFragment">
 
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Item"
+        android:textSize="29sp"
+        android:gravity="center"
+        android:layout_margin="40dp"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty"
+            android:textSize="20sp"
+            android:layout_marginStart="100dp"/>
+
+         <EditText
+             android:id="@+id/setQty"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:hint="2"
+            android:textSize="20sp"
+            android:layout_marginStart="35dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
