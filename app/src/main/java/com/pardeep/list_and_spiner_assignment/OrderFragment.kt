@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.pardeep.list_and_spiner_assignment.databinding.FragmentOrderBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,7 +23,10 @@ class OrderFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding : FragmentOrderBinding? = null
-    var spinner = mutableListOf("Dynamic")
+    var item = arrayListOf<MyData>()
+
+
+
 
 
 
@@ -40,13 +44,16 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false)
+        binding = FragmentOrderBinding.inflate(layoutInflater)
+        return binding?.root
+       // return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.spinner?.adapter = listAdapter
+
     }
+
 
     companion object {
         /**

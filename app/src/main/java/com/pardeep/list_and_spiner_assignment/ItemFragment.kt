@@ -1,6 +1,7 @@
 package com.pardeep.list_and_spiner_assignment
 
 import android.R
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import com.pardeep.list_and_spiner_assignment.databinding.FragmentItemBinding
 
@@ -28,12 +31,21 @@ class ItemFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding : FragmentItemBinding? = null
-    var itemdata = arrayListOf<ItemData>()
-    var listAdapter = MyAdapter(itemdata)
+    var item = arrayListOf<MyData>()
+    var recyclerAdapter = MyAdapter(item)
+
+
+    //to show data on screen use linear layout manager
+    lateinit var linearLayoutManager: LinearLayoutManager
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        item.add(MyData("Burger",40))
+        item.add(MyData("Pizza",20))
+        item.add(MyData("Salad",10))
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -43,7 +55,6 @@ class ItemFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
 
     ): View? {
 
@@ -57,27 +68,18 @@ class ItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var item1 = itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Pizza",10))
-        itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Pizza",10))
-        itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Pizza",10))
-        itemdata.add(ItemData("Burger",10))
-        itemdata.add(ItemData("Pizza",10))
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.ListView?.layoutManager = linearLayoutManager
 
+        binding?.ListView?.adapter = recyclerAdapter
+        binding?.fab?.setOnClickListener {
+            Dialog(requireContext()).apply {
+                setContentView(R.layout.add_item)
+            }
 
-        binding?.ListView?.adapter = listAdapter
-
+        }
     }
-
-
-
-
-
-
     companion object {
         /**
          * Use this factory method to create a new instance of
