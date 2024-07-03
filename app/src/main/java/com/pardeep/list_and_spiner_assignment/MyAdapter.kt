@@ -1,5 +1,6 @@
 package com.pardeep.list_and_spiner_assignment
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class MyAdapter (var list : ArrayList<MyData>) : RecyclerView.Adapter<MyAdapter.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var current_item_name = list[position].item_name
         holder.item_name.setText(current_item_name)
+
 
 
         var current_item_qty = list[position].item_qty.toString()

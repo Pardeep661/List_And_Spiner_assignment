@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         binding?.bottomNav?.setOnItemSelectedListener {
+
             when (it.itemId) {
                 R.id.Item -> navController.navigate(R.id.itemFragment)
                 R.id.order -> navController.navigate(R.id.orderFragment)

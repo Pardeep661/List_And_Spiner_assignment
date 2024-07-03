@@ -1,6 +1,5 @@
 package com.pardeep.list_and_spiner_assignment
 
-import android.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -34,7 +34,6 @@ class ItemFragment : Fragment() {
     var item = arrayListOf<MyData>()
     var recyclerAdapter = MyAdapter(item)
 
-
     //to show data on screen use linear layout manager
     lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -43,9 +42,7 @@ class ItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        item.add(MyData("Burger",40))
-        item.add(MyData("Pizza",20))
-        item.add(MyData("Salad",10))
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -68,18 +65,64 @@ class ItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         linearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.ListView?.layoutManager = linearLayoutManager
 
-        binding?.ListView?.adapter = recyclerAdapter
+
+
+
         binding?.fab?.setOnClickListener {
             Dialog(requireContext()).apply {
+
                 setContentView(R.layout.add_item)
-            }
+
+                window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+
+                val new_item_name = findViewById<EditText>(R.id.ItemName)
+                val new_item_qty = findViewById<EditText>(R.id.Qty)
+                val add_button = findViewById<Button>(R.id.addButton)
+
+                add_button.setOnClickListener {
+                    if (new_item_name.text.trim().isNullOrEmpty()) {
+                        new_item_name.error = "please enter the item name"
+                    } else if (new_item_qty.text.trim().isNullOrEmpty()) {
+                        new_item_qty.error = "please enter the qty"
+                    } else {
+                        var new_name = new_item_name.text.toString()
+                        val new_qty =new_item_qty.text
+                        addData(new_name,new_qty)
+                        item.add(MyData(item_name = new_item_name.toString(), 2))
+                    }
+                }
+
+            }.show()
+        }
+
+        item.add(MyData("Burger",40))
+        item.add(MyData("Pizza",20))
+        item.add(MyData("Salad",10))
+
+
+        binding?.ListView?.adapter = recyclerAdapter
+
+
+
+
+
 
         }
+
+    private fun addData(newName: String, newQty: Int) {
+        item.add(MyData(newName,newQty))
+
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
